@@ -35,6 +35,23 @@ async function loadIssues() {
 }
 
 
+async function searchBar() {
+
+    const item = document
+        .getElementById("searchInput")
+        .value;
+
+    const res = await fetch(
+        `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${item}`
+    );
+
+    const data = await res.json();
+
+    displayIssues(data.data);
+
+}
+
+
 
 // Display Cards
 function displayIssues(issues) {
