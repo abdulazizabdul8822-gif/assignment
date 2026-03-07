@@ -29,6 +29,7 @@
 
 <body class="bg-gray-100">
 
+    <!-- Navbar -->
 
     <nav class="bg-white shadow p-4 flex justify-between">
 
@@ -48,19 +49,21 @@
     </nav>
 
 
+    <!-- Tabs -->
+
     <section class="max-w-6xl mx-auto mt-8 bg-white shadow p-4">
 
         <div class=" flex items-center  gap-3">
 
-            <button id="allBtn" onclick="filterBtn('all')" class="tabBtn bg-blue-600 text-white px-6 py-2 rounded">
+            <button id="allBtn" onclick="filterIssues('all')" class="tabBtn bg-blue-600 text-white px-6 py-2 rounded">
                 All
             </button>
 
-            <button id="openBtn" onclick="filterBtn('open')" class="tabBtn bg-gray-200 px-6 py-2 rounded">
+            <button id="openBtn" onclick="filterIssues('open')" class="tabBtn bg-gray-200 px-6 py-2 rounded">
                 Open
             </button>
 
-            <button id="closedBtn" onclick="filterBtn('closed')" class="tabBtn bg-gray-200 px-6 py-2 rounded">
+            <button id="closedBtn" onclick="filterIssues('closed')" class="tabBtn bg-gray-200 px-6 py-2 rounded">
                 Closed
             </button>
 
@@ -68,7 +71,7 @@
         </section>
 
 
-
+        <!-- Issue Info -->
         <section class="max-w-6xl mx-auto mt-8 bg-white shadow p-4">
         <div class="flex justify-between items-center">
 
@@ -77,7 +80,7 @@
                 <img src="./Aperture.png" alt="">
 
                 <h3 class="font-bold text-lg">
-                    <span id="issueCount">0</span> Issues
+                    <span id="count">0</span> Issues
                 </h3>
 
             </div>
@@ -100,7 +103,18 @@
 
     </section>
 
-    <script src="script.js"></script>
+
+    <!-- Cards -->
+
+    <section class="max-w-6xl mx-auto mt-6">
+
+        <div id="issuesAllCard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        </div>
+
+    </section>
+
+    <script src="./js/script.js"></script>
 
 </body>
 
