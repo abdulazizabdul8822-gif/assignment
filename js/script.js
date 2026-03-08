@@ -3,10 +3,11 @@
 const loginBtn = document.getElementById("loginBtn");
 const issuesAllCard = document.getElementById("issuesAllCard");
 const count = document.getElementById("count");
+const loadingSpinner = document.getElementById("loadingSpinner");
 
 let allIssues = [];
 
-// Login System
+
 if (loginBtn) {
     loginBtn.addEventListener("click", function () {
         const userName = document.getElementById("inputUsername").value;
@@ -21,14 +22,23 @@ if (loginBtn) {
     });
 }
 
-// Load Issues
+function showLoading() {
+    loadingSpinner.classList.remove("hidden");
+    issuesAllCard.innerHTML = "";
+}
+function hideLoading() {
+    loadingSpinner.classList.add("hidden");
+}
+
+
 async function loadIssues() {
+    showLoading();
     const res = await fetch(
         "https://phi-lab-server.vercel.app/api/v1/lab/issues"
     );
 
     const data = await res.json();
-
+    hideLoading();
     allIssues = data.data;
 
     displayIssues(allIssues);
@@ -53,7 +63,7 @@ async function searchBar() {
 
 
 
-// Display Cards
+
 function displayIssues(issues) {
 
     issuesAllCard.innerHTML = "";
@@ -62,14 +72,14 @@ function displayIssues(issues) {
 
     issues.forEach((issue) => {
 
-        // Status Border
+
         let borderColor = "border-green-500";
 
         if (issue.status === "closed") {
             borderColor = "border-purple-500";
         }
 
-        // Priority Color
+
         let priorityColor = "bg-blue-500";
 
         if (issue.priority === "high") {
@@ -89,7 +99,7 @@ function displayIssues(issues) {
         }
 
 
-        // Labels Map
+
         const labelsHtml = issue.labels
             .map((label, index) => {
 
