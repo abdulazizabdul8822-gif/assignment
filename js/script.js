@@ -5,6 +5,17 @@ const issuesAllCard = document.getElementById("issuesAllCard");
 const count = document.getElementById("count");
 const loadingSpinner = document.getElementById("loadingSpinner");
 
+const issueModal = document.getElementById("cardModal");
+
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modelDescription");
+const modalStatus = document.getElementById("modalStatus");
+const modalAuthor = document.getElementById("modalAuthor");
+const modalDate = document.getElementById("modalDate");
+const modalAssignee = document.getElementById("modalAssignee");
+const modalPriority = document.getElementById("modalPriority");
+const modalLabels = document.getElementById("modalLabels");
+
 let allIssues = [];
 
 
@@ -146,9 +157,10 @@ function displayIssues(issues) {
 
     </div>
 
-    <h3 class="font-bold text-lg mt-2">
-      ${issue.title}
-    </h3>
+   <h3 class="font-bold text-lg mt-2 cursor-pointer"
+onclick="openIssueModal(${issue.id})">
+${issue.title}
+</h3>
 
     <p class="text-sm text-gray-500 mt-2">
       ${issue.description}
@@ -173,4 +185,39 @@ function displayIssues(issues) {
     });
 
 }
+
+async function openIssueModal(id) {
+
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+
+    const data = await res.json();
+
+    const issue = data.data;
+
+    modalTitle.innerText = issue.title;
+
+    modalDescription.innerText = issue.description;
+
+    modalStatus.innerText = issue.status.toUpperCase();
+
+    modalAuthor.innerText = issue.author;
+
+    modalDate.innerText = issue.createdAt;
+
+    modalAssignee.innerText = issue.assignee;
+
+    modalPriority.innerText = issue.priority.toUpperCase();
+
+    modalLabels.innerHTML = issue.labels
+        .map(label => `
+<span class="border border-red-300 text-red-500 px-3 py-1 rounded-full text-xs">
+${label.toUpperCase()}
+</span>
+`).join("");
+
+    issueModal.showModal();
+
+}
+
+
 loadIssues();
