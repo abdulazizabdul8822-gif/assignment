@@ -8,7 +8,7 @@ const loadingSpinner = document.getElementById("loadingSpinner");
 const issueModal = document.getElementById("cardModal");
 
 const modalTitle = document.getElementById("modalTitle");
-const modalDescription = document.getElementById("modelDescription");
+const modalDescription = document.getElementById("modalDescription");
 const modalStatus = document.getElementById("modalStatus");
 const modalAuthor = document.getElementById("modalAuthor");
 const modalDate = document.getElementById("modalDate");
@@ -187,15 +187,15 @@ ${issue.title}
 }
 
 
-function filterIssues(type) {
+function filterIssues(color) {
 
-    activeButton(type);
+    activeButton(color);
 
-    if (type === "all") {
+    if (color === "all") {
         displayIssues(allIssues);
     }
 
-    else if (type === "open") {
+    else if (color === "open") {
 
         const filtered = allIssues.filter(
             (issue) => issue.status === "open"
@@ -204,7 +204,7 @@ function filterIssues(type) {
         displayIssues(filtered);
     }
 
-    else if (type === "closed") {
+    else if (color === "closed") {
 
         const filtered = allIssues.filter(
             (issue) => issue.status === "closed"
@@ -216,8 +216,36 @@ function filterIssues(type) {
 
 
 
+function activeButton(color) {
 
+    const buttons = document.querySelectorAll(".tabBtn");
 
+    buttons.forEach((btn) => {
+        btn.classList.remove("bg-blue-600", "text-white");
+        btn.classList.add("bg-gray-200");
+    });
+
+    if (color === "all") {
+        const btn = document.getElementById("allBtn");
+
+        btn.classList.remove("bg-gray-200");
+        btn.classList.add("bg-blue-600", "text-white");
+    }
+
+    if (color === "open") {
+        const btn = document.getElementById("openBtn");
+
+        btn.classList.remove("bg-gray-200");
+        btn.classList.add("bg-blue-600", "text-white");
+    }
+
+    if (color === "closed") {
+        const btn = document.getElementById("closedBtn");
+
+        btn.classList.remove("bg-gray-200");
+        btn.classList.add("bg-blue-600", "text-white");
+    }
+}
 
 async function openIssueModal(id) {
 
