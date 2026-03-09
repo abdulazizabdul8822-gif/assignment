@@ -186,29 +186,62 @@ ${issue.title}
 
 }
 
+
+function filterIssues(type) {
+
+    activeButton(type);
+
+    if (type === "all") {
+        displayIssues(allIssues);
+    }
+
+    else if (type === "open") {
+
+        const filtered = allIssues.filter(
+            (issue) => issue.status === "open"
+        );
+
+        displayIssues(filtered);
+    }
+
+    else if (type === "closed") {
+
+        const filtered = allIssues.filter(
+            (issue) => issue.status === "closed"
+        );
+
+        displayIssues(filtered);
+    }
+}
+
+
+
+
+
+
 async function openIssueModal(id) {
 
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
 
     const data = await res.json();
 
-    const issue = data.data;
+    const items = data.data;
 
-    modalTitle.innerText = issue.title;
+    modalTitle.innerText = items.title;
 
-    modalDescription.innerText = issue.description;
+    modalDescription.innerText = items.description;
 
-    modalStatus.innerText = issue.status.toUpperCase();
+    modalStatus.innerText = items.status.toUpperCase();
 
-    modalAuthor.innerText = issue.author;
+    modalAuthor.innerText = items.author;
 
-    modalDate.innerText = issue.createdAt;
+    modalDate.innerText = items.createdAt;
 
-    modalAssignee.innerText = issue.assignee;
+    modalAssignee.innerText = items.assignee;
 
-    modalPriority.innerText = issue.priority.toUpperCase();
+    modalPriority.innerText = items.priority.toUpperCase();
 
-    modalLabels.innerHTML = issue.labels
+    modalLabels.innerHTML = items.labels
         .map(label => `
 <span class="border border-red-300 text-red-500 px-3 py-1 rounded-full text-xs">
 ${label.toUpperCase()}
